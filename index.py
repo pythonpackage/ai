@@ -1,3 +1,175 @@
+Program 1 - Breadth first search 
+
+def bfs(graph,start):
+    visited = []
+    queue=[start]
+    while queue:
+        node = queue.pop(0)
+        if node not in visited:
+            print(node)
+            visited.append(node)
+            queue.extend(graph[node])
+graph = {
+    'A' : ['B','C'],
+    'B' : ['D','E'],
+    'C' : ['F'],
+    'D' : [],
+    'E' : ['F'],
+    'F' : []
+}
+print("Bfs traversal")
+bfs(graph,'A')
+
+Program 2 - Depth first search 
+
+def dfs(graph,node,visited=None):
+    if visited is None:
+        visited=[]
+    if node not in visited:
+        print(node)
+        visited.append(node)
+        for neighbour in graph[node]:
+            dfs(graph,neighbour,visited)
+
+graph = {
+    'A' : ['B','C'],
+    'B' : ['D','E'],
+    'C' : ['F'],
+    'D' : [],
+    'E' : ['F'],
+    'F' : []
+}
+print("Dfs traversal")
+dfs(graph,'A')
+
+program - 3 Tic tac toe game
+
+board  = ['1','2','3','4','5','6','7','8','9']
+player = 'X'
+for turn in range(9):
+    print(board[0],"|",board[1],"|",board[2])
+    print(board[3], "|", board[4], "|", board[5])
+    print(board[6], "|", board[7], "|", board[8])
+
+    choice  = int(input("Player "+player+" enter 1-9: "))
+    board[choice-1] = player
+    if board[0]==board[1]==board[2]:
+        print("Player ",player,"wins")
+        break
+    if board[3] == board[4] == board[5]:
+        print("Player ", player, "wins")
+        break
+    if board[6] == board[7] == board[8]:
+        print("Player ", player, "wins")
+        break
+    if board[0] == board[3] == board[6]:
+        print("Player ", player, "wins")
+        break
+    if board[1] == board[4] == board[7]:
+        print("Player ", player, "wins")
+        break
+    if board[2] == board[5] == board[8]:
+        print("Player ", player, "wins")
+        break
+    if board[0] == board[4] == board[8]:
+        print("Player ", player, "wins")
+        break
+    if board[2] == board[4] == board[6]:
+        print("Player ", player, "wins")
+        break
+    if player == 'X':
+        player = 'O'
+    else:
+        player = 'X'
+else:
+    print("Its a tie")
+
+Program - 4 8 puzzle problem
+
+from collections import deque
+def solve(b):
+    s = sum(b, [])
+    if s == list(range(9)): return 0
+    m = [[1, 3], [0, 2, 4], [1, 5], [0, 4, 6], [1, 3, 5, 7], [2, 4, 8], [3, 7],
+         [4, 6, 8], [5, 7]]
+    q = deque([(s, 0)])
+    v = set()
+    while q:
+        t, c = q.popleft()
+        if str(t) in v: continue
+        v.add(str(t))
+        z = t.index(0)
+
+        for i in m[z]:
+            n = t[:]
+            n[z], n[i] = n[i], n[z]
+            if n == list(range(9)): return c + 1
+            q.append((n, c + 1))
+    return -1
+print(solve([[3, 1, 2], [4, 7, 5], [6, 8, 0]])) 
+
+program - 5  Water Jug 
+
+print("Water Jug problem") 
+x = int(input("Enter X:")) 
+y = int(input("Enter Y:")) 
+ 
+while True: 
+    rno = int(input("Enter the rule no:")) 
+     
+    if rno == 1: 
+        if x < 4: 
+            x = 4 
+ 
+    if rno == 2: 
+        if y < 3: 
+            y = 3 
+ 
+    if rno == 5: 
+        if x > 0: 
+            x = 0 
+ 
+    if rno == 6: 
+        if y > 0: 
+            y = 0 
+ 
+    if rno == 7: 
+        if x + y >= 4 and y > 0: 
+            x, y = 4, y - (4 - x) 
+ 
+    if rno == 8: 
+        if x + y >= 3 and x > 0: 
+            x, y = x - (3 - y), 3 
+ 
+    if rno == 9: 
+        if x + y <= 4 and y > 0: 
+            x, y = x + y, 0 
+ 
+    if rno == 10: 
+        if x + y <= 3 and x > 0: 
+            x, y = 0, x + y 
+ 
+    print("x =", x) 
+    print("y =", y) 
+ 
+    if x == 2: 
+        print("The result is a goal state") 
+        break 
+
+Program 6 Salesman
+
+from itertools import permutations
+d = [[0,10,15,20], [10,0,35,25], [15,35,0,30], [20,25,30,0]]
+best = 999
+path = []
+for trip in permutations([1,2,3]):
+    a, b, c = trip
+    cost = d[0][a] + d[a][b] + d[b][c] + d[c][0]
+    if cost < best:
+        best = cost
+        path = trip
+        print("Cost:", best, "Path:", path)
+
 program - 7 Tower of hanoi
 
 def tower_of_hanoi(n, source, aux, dest):
@@ -188,4 +360,5 @@ text = "This is a simple example to remove stop words using NLTK."
 words = word_tokenize(text)
 filtered = [w for w in words if w.lower() not in stopwords.words('english')]
 print(filtered)
+
 
